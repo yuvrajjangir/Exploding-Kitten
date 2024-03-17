@@ -43,7 +43,7 @@ function Leaderboard() {
 
   return (
     <div>
-      <p className="cursor-pointer font-bold  " onClick={onOpen}>
+      <p className="cursor-pointer font-bold flex bg-white px-4 py-1 text-xl rounded-md space-x-3 bg-opacity-50 " onClick={onOpen}>
         Leaderboard
       </p>
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -54,9 +54,9 @@ function Leaderboard() {
           backgroundColor="transparent"
           width={"full"}
         >
-          <div className="bg-[rgb(155,5,21)] w-full z-0 absolute h-full rounded-md opacity-80"></div>
-          <div className="px-4 text-white font-bold text-2xl py-2 z-10 flex items-center">
-            <p>Leaderboard </p>
+          <div className="bg-[rgb(1,5,21)] w-full z-0 absolute h-full rounded-md opacity-80"></div>
+          <div className="px-4 text-white font-bold text-2xl py-2 z-10 flex items-center ">
+            <p className="">Leaderboard </p>
             <ModalCloseButton marginTop={"1.5rem"} />
           </div>
           <div className="flex flex-col pb-6  space-y-4  border-[1px] rounded-md py-2 z-10 w-[26rem] ml-4 mt-4 border-white text-white">
@@ -76,7 +76,7 @@ function Leaderboard() {
                   return (
                     <div
                       key={index}
-                      className="flex border-2 py-[7px] hover:bg-[rgb(247,30,51)] rounded-xl mx-4 px-8 justify-between"
+                      className="flex border-2 py-[7px] hover:bg-[rgb(5,30,1)] rounded-xl mx-4 px-8 justify-between"
                     >
                       <p className="w-[50%] text-center font-bold text-white">
                         {user.username}

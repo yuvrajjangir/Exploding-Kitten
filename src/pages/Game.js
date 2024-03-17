@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import bgImage from "../assets/img/bg.jpg";
-import cardImage from "../assets/img/card.png";
+import bgImage from "../assets/img/bg.jpeg";
+import cardImage from "../assets/img/card.jpg";
 import defuseCardImg from "../assets/img/defuseCard.jpg";
 import explodeCard from "../assets/img/explodeCard.png";
 import shuffleCard from "../assets/img/shuffleCard.png";
 import catCard from "../assets/img/catcard.jpg";
-import gameLogo from "../assets/img/gameLogo.png";
-import Popover from "../components/Popover";
+import gameLogo from "../assets/img/gameLogo.webp";
+import Popover from "../components/Popup";
 import {
   editUserDetail,
   getUserDetail,
@@ -24,25 +24,25 @@ const GamePlayArea = (props) => {
   const [defuseCards, setDefuseCards] = useState([]);
   const [openedCard, setOpenedCard] = useState("");
 
-  // game cards
+ 
   const cards = ["CAT", "DEFUSE", "SHUFFLE", "EXPLODE"];
 
   useEffect(() => {
-    //fetching user details from local storage //
+   
     dispatch(getUserDetail());
     props.setIsLobby(false);
-    // eslint-disable-next-line
+    
   }, []);
 
   useEffect(() => {
     if (!user.deck) return;
-    //updating game when get user details //
+   
     updateGameState();
   }, [user]);
 
   const updateUserState = (data) => {
     const { deck, defuseCards, openedCard, gameStatus } = data;
-    //dispatching action to update users details in local storage //
+   
     dispatch(
       editUserDetail({
         username: user?.username,
@@ -56,7 +56,7 @@ const GamePlayArea = (props) => {
       })
     );
 
-    //if users won the game then updating there points in database //
+   
     if (gameStatus === "won") {
       dispatch(
         updateUserPoints({
@@ -73,7 +73,7 @@ const GamePlayArea = (props) => {
   };
 
   const updateGameState = () => {
-    //to update game state on every user action //
+   
     if (user?.deck?.length < 5 && user?.deck?.length > 0) {
       setDeck(user?.deck);
       setDefuseCards(user.defuseCards);
@@ -89,19 +89,19 @@ const GamePlayArea = (props) => {
     }
   };
 
-  // to generate random deck
+ 
   const generateRandomDeck = () => {
-    //to generate 5 random numbers from 0 to 3
+    
     const c1 = Math.floor(Math.random() * 4);
     const c2 = Math.floor(Math.random() * 4);
     const c3 = Math.floor(Math.random() * 4);
     const c4 = Math.floor(Math.random() * 4);
     const c5 = Math.floor(Math.random() * 4);
 
-    //making random array by putting random numbers //
+   
     let randromDeck = [cards[c1], cards[c2], cards[c3], cards[c4], cards[c5]];
 
-    // filtering shuffle cards if it is more than 1
+   
     let shuffleCount = 0;
     randromDeck = randromDeck.map((card) => {
       if (card === "SHUFFLE") {
@@ -115,35 +115,34 @@ const GamePlayArea = (props) => {
     return randromDeck;
   };
 
-  //to show message (popover) after shuffle ,game over, game won
+ 
   const showMessageAndReset = (msg, btnText) => {
     setPopupVisible(true);
     setPopupData({ message: msg, btnText });
   };
 
-  //to reveal cards after click card deck
+ 
   const revealCard = () => {
     if (!processComplete) return;
     processComplete = false;
 
-    //removing openedCard card from deck
+    
     let cards = [...deck];
     const poppedCard = cards.pop();
     setOpenedCard(poppedCard);
-    //updating deck
+
     setDeck([...cards]);
 
-    //if poppedcard is shuffle card then reset deck
+    
     if (poppedCard === "SHUFFLE") {
       setTimeout(() => {
         sendDataToUpdate(generateRandomDeck(), [], "", "none");
       }, 700);
       showMessageAndReset("Game Shuffled", "Continue");
-      //if popped card is cat card then just continues game
+     
     } else if (poppedCard === "CAT") {
       if (!cards.length) {
-        //if there is no cards left then reseting deck and firing message
-        //user wons
+        
         setTimeout(() => {
           sendDataToUpdate(generateRandomDeck(), [], "", "won");
         }, 700);
@@ -151,11 +150,10 @@ const GamePlayArea = (props) => {
       } else {
         sendDataToUpdate(cards, defuseCards, poppedCard, "none");
       }
-      //if card is defuse card then it will be stored in defuse cards //
+      
     } else if (poppedCard === "DEFUSE") {
       if (!cards.length) {
-        //if there is no cards left then reseting deck and firing message
-        //user wons
+        
         setTimeout(() => {
           sendDataToUpdate(generateRandomDeck(), [], "", "won");
         }, 700);
@@ -166,26 +164,25 @@ const GamePlayArea = (props) => {
         setDefuseCards(updatedDefusedCard);
         sendDataToUpdate(cards, updatedDefusedCard, poppedCard, "none");
       }
-      //if card is explode
+      
     } else if (poppedCard === "EXPLODE") {
-      //checking is there is defuse card or not
+     
       if (defuseCards.length) {
         if (!cards.length) {
-          //if there is no cards left then reseting deck and firing message
-          //user wons
+          
           setTimeout(() => {
             sendDataToUpdate(generateRandomDeck(), [], "", "won");
           }, 700);
           showMessageAndReset("You won", "Play Again");
         } else {
-          //if there is defuse card  //
+         
           let updatedDefuseCards = [...defuseCards];
           updatedDefuseCards.pop();
           setDefuseCards(updatedDefuseCards);
           sendDataToUpdate(cards, updatedDefuseCards, poppedCard, "none");
         }
       } else {
-        //if there is no defuse card left
+        
         setTimeout(() => {
           sendDataToUpdate(generateRandomDeck(), [], "", "lost");
         }, 700);
@@ -195,7 +192,7 @@ const GamePlayArea = (props) => {
     processComplete = true;
   };
 
-  //return  card src acccording to their name
+  
   const setOpenedCardSrc = () => {
     if (openedCard === "") {
       return "";
@@ -222,7 +219,7 @@ const GamePlayArea = (props) => {
         className="w-full left-0 flex flex-col justify-center -space-y-6 items-center h-[100vh] absolute bg-[rgb(84,3,25)] top-0 z-20"
       >
         <img alt="" src={gameLogo}></img>
-        <p className="text-2xl font-bold text-white">Exploding Kitten </p>
+        <p className="text-2xl font-bold text-white" style={{marginTop:"20px"}}>Exploding Kitten </p>
       </div>
       {popupVisible && (
         <Popover
@@ -239,7 +236,7 @@ const GamePlayArea = (props) => {
       ></img>
       <section className="flex justify-center space-x-80 z-10 relative h-[80vh]  text-white">
         <div className="z-20 absolute max-h-44  bottom-4  w-96 ">
-          <div className="text-center font-semibold">
+          <div className="text-center font-semibold" style={{marginBottom:"2rem",  marginTop:"-2rem"}}>
             Click on the deck to open a card
           </div>
           {deck.map((card, index) => {
@@ -262,7 +259,7 @@ const GamePlayArea = (props) => {
           })}
         </div>
 
-        <section className="openedCard-container relative mb-4 w-48 h-64 flex-col items-center flex ">
+        <section className="openedCard-container relative mb-4 w-48 h-64 flex-col items-center flex " style={{marginLeft:"3rem"}}>
           <h3 className="font-semibold text-lg">
             {openedCard ? openedCard + " CARD" : "CURRENT CARD"}
           </h3>

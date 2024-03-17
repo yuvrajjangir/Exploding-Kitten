@@ -12,13 +12,13 @@ function Rules() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <div>
-      <p className="cursor-pointer font-bold " onClick={onOpen}>
+      <p className="cursor-pointer font-bold flex bg-white px-4 py-1 text-xl rounded-md space-x-3 bg-opacity-50"  onClick={onOpen}>
         Rules
       </p>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent position={"relative"} backgroundColor="transparent">
-          <div className="bg-[rgb(155,5,21)] w-full z-0 absolute h-full rounded-md opacity-80"></div>
+          <div className="bg-[rgb(1,5,21)] w-full z-0 absolute h-full rounded-md opacity-80"></div>
           <div className="px-4 text-white font-bold text-2xl py-2 z-10 flex items-center">
             <p>Rules - </p>
             <ModalCloseButton />

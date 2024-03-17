@@ -5,10 +5,10 @@ import { Routes ,Route} from "react-router-dom";
 
 import {useNavigate} from "react-router-dom";
 
-import Header from "../src/components/Header";
-import GamePlayArea from "./pages/GamePlayArea";
+import Header from "./components/Nav";
+import GamePlayArea from "./pages/Game";
 
-import GameLobby from "./pages/GameLobby";
+import GameLobby from "./pages/MainPage";
 
 const App = () => {
       let history =useNavigate();   

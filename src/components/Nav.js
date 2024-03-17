@@ -1,5 +1,5 @@
 import React from "react";
-import gameLogo from "../assets/img/gameLogo.png";
+import gameLogo from "../assets/img/gameLogo.webp";
 import Leaderboard from "./Leaderboard";
 import Rules from "./Rules";
 import { useNavigate } from "react-router-dom";
@@ -33,13 +33,13 @@ const Header = (props) => {
       )}
       {!isLobby && user?.username && (
         <div className="flex space-x-2  pl-6">
-          <div className="flex bg-white px-4 py-1 text-xl rounded-md space-x-3">
-            <p className=" text-black font-bold">NAME : </p>
-            <p className="font-bold  text-[rgb(132,204,22)]">{user.username}</p>
+          <div className="flex bg-white px-4 py-1 text-xl rounded-md space-x-3 bg-opacity-50">
+            <p className=" text-black font-bold ">NAME : </p>
+            <p className="font-bold  text-white">{user.username}</p>
           </div>
-          <div className="flex bg-white px-4 py-1 text-xl rounded-md space-x-3">
+          <div className="flex bg-white px-4 py-1 text-xl rounded-md space-x-3 bg-opacity-50">
             <p className=" text-black  font-bold">POINTS :</p>
-            <p className="font-bold   text-[rgb(132,204,22)]">{user.matchesWon}</p>
+            <p className="font-bold   text-white">{user.matchesWon}</p>
           </div>
         </div>
       )}
@@ -47,7 +47,7 @@ const Header = (props) => {
         <Rules />
         {!isLobby && <Leaderboard />}
         {!isLobby && (
-          <p onClick={exitGame} className="cursor-pointer font-bold">
+          <p onClick={exitGame} className="cursor-pointer font-bold flex bg-white px-4 py-1 text-xl rounded-md space-x-3 bg-opacity-50">
             Exit
           </p>
         )}
